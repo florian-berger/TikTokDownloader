@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:TikTokLoaderMAUI.ViewModel;assembly=TikTokLoaderMAUI"
+             xmlns:converters="using:TikTokLoaderMAUI.Converters"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="TikTokLoaderMAUI.MainPage" Background="#2c2e30">
+
+    <ContentPage.Resources>
+        <converters:UnixTimeToDateTimeConverter x:Key="UnixTimeToDateTimeConverter" />
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <viewModel:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid Margin="12,0,12,12">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Path=GridTappedCommand, Mode=OneWay}" />
+        </Grid.GestureRecognizers>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Entry x:Name="UriEntry" Grid.Row="0" Placeholder="TikTok URL" ClearButtonVisibility="WhileEditing" Text="{Binding Path=DownloadUri, Mode=TwoWay}"
+               Completed="UnFocusEntryAndSend" ReturnType="Go" ReturnCommand="{Binding Path=AnalyzeUriCommand, Mode=OneWay}"
+               IsSpellCheckEnabled="False" Keyboard="Url" />
+        <Button Grid.Row="1" HorizontalOptions="Fill" Text="Analyze URL" Command="{Binding Path=AnalyzeUriCommand, Mode=OneWay}" />
+
+        <Grid Grid.Row="3" IsVisible="{Binding Path=IsAnalyzing, Mode=OneWay}">
+            <ActivityIndicator IsRunning="True" IsVisible="True" HeightRequest="64" WidthRequest="64" />
+        </Grid>
+
+        <Grid Grid.Row="3" IsVisible="{Binding Path=HasDownloadDetails, Mode=OneWay}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Image Grid.Row="0" Source="{Binding Path=Data.ThumbnailUri, Mode=OneWay}" HeightRequest="128" />
+
+            <ScrollView Grid.Row="2" Margin="12" HorizontalOptions="Fill" VerticalOptions="Fill">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Text="Author" FontAttributes="Bold" VerticalOptions="Center" />
+                    <StackLayout Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
+                        <toolkit:AvatarView ImageSource="{Binding Path=Data.UploadUserAvatar, Mode=OneWay}" Margin="0,0,5,0" 
+                                            HeightRequest="24" WidthRequest="24" VerticalOptions="Center" BorderWidth="0" />
+                        <Label Text="{Binding Path=Data.UploadUser, Mode=OneWay}" VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <Label Grid.Row="2" Grid.Column="0" Text="Uploaded on" FontAttributes="Bold" VerticalOptions="Center" />
+                    <Label Grid.Row="2" Grid.Column="2" LineBreakMode="WordWrap"
+                           Text="{Binding Path=Data.CreationTimeStamp, Mode=OneWay, Converter={StaticResource UnixTimeToDateTimeConverter}, StringFormat='{0:f}'}" />
+
+                    <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="Statistics" FontAttributes="Bold" FontSize="20" />
+
+                    <Label Grid.Row="6" Grid.Column="0" Text="Views" FontAttributes="Bold" />
+                    <Label Grid.Row="6" Grid.Column="2" Text="{Binding Path=Data.Statistics.PlayCount, Mode=OneWay, StringFormat='{0:N0}'}" />
+
+                    <Label Grid.Row="8" Grid.Column="0" Text="Comments" FontAttributes="Bold" />
+                    <Label Grid.Row="8" Grid.Column="2" Text="{Binding Path=Data.Statistics.CommentsCount, Mode=OneWay, StringFormat='{0:N0}'}" />
+
+                    <Label Grid.Row="10" Grid.Column="0" Text="Collections" FontAttributes="Bold" />
+                    <Label Grid.Row="10" Grid.Column="2" Text="{Binding Path=Data.Statistics.CollectsCount, Mode=OneWay, StringFormat='{0:N0}'}" />
+                </Grid>
+            </ScrollView>
+
+            <StackLayout Grid.Row="4" Orientation="Vertical">
+                <Button Text="Download without watermark" Command="{Binding Path=DownloadWithoutWatermarkCommand, Mode=OneWay}" HorizontalOptions="Fill" />
+                <Button Text="Download with watermark" Command="{Binding Path=DownloadWithWatermarkCommand, Mode=OneWay}" HorizontalOptions="Fill" Margin="0,5,0,5" />
+                <Button Text="Download music" Command="{Binding Path=DownloadMusicCommand, Mode=OneWay}" HorizontalOptions="Fill" />
+            </StackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>
