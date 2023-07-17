@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using TikTokLoader.Logic;
 using TikTokLoaderMAUI.Base;
-using TikTokLoaderMAUI.Classes;
+using TikTokLoader.Logic.Data;
+using TikTokLoaderMAUI.Utils;
 
 namespace TikTokLoaderMAUI.ViewModel
 {
@@ -34,6 +36,7 @@ namespace TikTokLoaderMAUI.ViewModel
 
         public MainViewModel()
         {
+            _downloadUri = string.Empty;
         }
 
         #endregion Constructor
@@ -54,13 +57,13 @@ namespace TikTokLoaderMAUI.ViewModel
             IsAnalyzing = true;
             try
             {
-                Data = await TikTokLoader.AnalyzeUri(DownloadUri);
+                Data = await Analyzer.AnalyzeUri(DownloadUri);
             }
             catch (Exception ex)
             {
-                Data = null!;
+                Data = null;
 
-                await Shell.Current.DisplayAlert("ERROR", ex.Message, "OK");
+                await ExceptionHelper.DisplayExceptionMessage(ex);
             }
             finally
             {
@@ -83,10 +86,10 @@ namespace TikTokLoaderMAUI.ViewModel
             }
 
             bool successfully;
-            var filename = $"{Data.Id}.mp4";
+            var filename = $"{Data?.Id}.mp4";
             try
             {
-                successfully = await TikTokLoader.DownloadMediaAsync(downloadUrl, filename);
+                successfully = await DownloadHelper.DownloadMediaAsync(downloadUrl, filename);
             }
             catch
             {
@@ -111,10 +114,10 @@ namespace TikTokLoaderMAUI.ViewModel
             }
 
             bool successfully;
-            var filename = $"{Data.Id}_wm.mp4";
+            var filename = $"{Data?.Id}_wm.mp4";
             try
             {
-                successfully = await TikTokLoader.DownloadMediaAsync(downloadUrl, filename);
+                successfully = await DownloadHelper.DownloadMediaAsync(downloadUrl, filename);
             }
             catch
             {
@@ -139,10 +142,10 @@ namespace TikTokLoaderMAUI.ViewModel
             }
 
             bool successfully;
-            var filename = $"{Data.Id}.mp3";
+            var filename = $"{Data?.Id}.mp3";
             try
             {
-                successfully  = await TikTokLoader.DownloadMediaAsync(downloadUrl, filename);
+                successfully  = await DownloadHelper.DownloadMediaAsync(downloadUrl, filename);
             }
             catch
             {
@@ -157,10 +160,10 @@ namespace TikTokLoaderMAUI.ViewModel
         {
             // Fix for the fucking fucked Android MAUI issue that the keyboard never closes...!
 #if ANDROID
-            var imm = (Android.Views.InputMethods.InputMethodManager)MauiApplication.Current.GetSystemService(Android.Content.Context.InputMethodService);
-            if (imm != null)
+            var systemService = MauiApplication.Current.GetSystemService(Android.Content.Context.InputMethodService);
+            if (systemService is Android.Views.InputMethods.InputMethodManager imm)
             {
-                //this stuff came from here:  https://www.syncfusion.com/kb/12559/how-to-hide-the-keyboard-when-scrolling-in-xamarin-forms-listview-sflistview
+                //this stuff came from here: https://www.syncfusion.com/kb/12559/how-to-hide-the-keyboard-when-scrolling-in-xamarin-forms-listview-sflistview
                 var activity = Platform.CurrentActivity;
                 var wToken = activity?.CurrentFocus?.WindowToken;
                 imm.HideSoftInputFromWindow(wToken, 0);

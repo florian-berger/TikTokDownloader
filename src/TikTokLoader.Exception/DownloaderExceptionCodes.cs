@@ -1,4 +1,4 @@
-﻿namespace TikTokLoaderMAUI.Exceptions
+﻿namespace TikTokLoader.Exception
 {
     public enum DownloaderExceptionCodes
     {

@@ -1,13 +1,13 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace TikTokLoaderMAUI.Classes
+namespace TikTokLoader.Logic.Data
 {
     public class TikTokMusic
     {
         [JsonPropertyName("title")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         [JsonPropertyName("play_url")]
-        public TikTokMediaUrl PlayUri { get; set; }
+        public TikTokMediaUrl? PlayUri { get; set; }
     }
 }

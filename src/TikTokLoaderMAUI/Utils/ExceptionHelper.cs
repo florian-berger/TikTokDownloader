@@ -1,10 +1,10 @@
-﻿using TikTokLoaderMAUI.Exceptions;
+﻿using TikTokLoader.Exception;
 
 namespace TikTokLoaderMAUI.Utils
 {
     public static class ExceptionHelper
     {
-        public static async void DisplayExceptionMessage(Exception exception)
+        public static async Task DisplayExceptionMessage(Exception exception)
         {
             if (exception is DownloaderException downEx)
             {

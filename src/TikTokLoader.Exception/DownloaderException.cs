@@ -1,8 +1,8 @@
 ﻿using System.Runtime.Serialization;
 
-namespace TikTokLoaderMAUI.Exceptions
+namespace TikTokLoader.Exception
 {
-    public class DownloaderException : Exception
+    public class DownloaderException : System.Exception
     {
         #region Properties
 
@@ -15,7 +15,7 @@ namespace TikTokLoaderMAUI.Exceptions
 
         #region Constructor
 
-        public DownloaderException(DownloaderExceptionCodes code) : base()
+        public DownloaderException(DownloaderExceptionCodes code)
         {
             Code = code;
         }
@@ -25,7 +25,7 @@ namespace TikTokLoaderMAUI.Exceptions
             Code = code;
         }
 
-        public DownloaderException(DownloaderExceptionCodes code, string message, Exception innerException) : base(message, innerException)
+        public DownloaderException(DownloaderExceptionCodes code, string message, System.Exception innerException) : base(message, innerException)
         {
             Code = code;
         }

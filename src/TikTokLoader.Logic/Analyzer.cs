@@ -1,17 +1,16 @@
-﻿using CommunityToolkit.Maui.Storage;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using TikTokLoaderMAUI.Classes;
-using TikTokLoaderMAUI.Exceptions;
+using TikTokLoader.Exception;
+using TikTokLoader.Logic.Data;
 
-namespace TikTokLoaderMAUI
+namespace TikTokLoader.Logic
 {
-    public class TikTokLoader
+    public class Analyzer
     {
         #region Public methods
 
-        public static async Task<DownloadDetails> AnalyzeUri(string uri)
+        public static async Task<DownloadDetails?> AnalyzeUri(string uri)
         {
             if (string.IsNullOrWhiteSpace(uri))
             {
@@ -24,7 +23,7 @@ namespace TikTokLoaderMAUI
                 throw new DownloaderException(DownloaderExceptionCodes.VideoIdNotFound, "Video ID could not be found with the entered URI.");
             }
 
-            var apiUri = $"https://api19-core-c-useast1a.musical.ly/aweme/v1/feed/?aweme_id={videoId}&version_code=262&app_name=musical_ly&channel=App&device_id=null&os_version=14.4.2&device_platform=iphone&device_type=iPhone9";
+            var apiUri = Constants.ApiUri.Replace("{videoId}", videoId);
 
             using (var client = new HttpClient())
             {
@@ -37,36 +36,25 @@ namespace TikTokLoaderMAUI
                     var tikTokResultAsString = await response.Content.ReadAsStringAsync();
 
                     var tikTokResult = JsonSerializer.Deserialize<TikTokResult>(tikTokResultAsString);
+                    if (tikTokResult == null)
+                    {
+                        return null;
+                    }
 
                     return new DownloadDetails
                     {
-                        Id = tikTokResult.MediaList[0].Id,
-                        Description= tikTokResult.MediaList[0].Description,
-                        CreationTimeStamp = tikTokResult.MediaList[0].CreationTime,
-                        WatermarkVideoUri = tikTokResult.MediaList[0].Video.DownloadAddress.UriList.FirstOrDefault(),
-                        NoWatermarkVideoUri = tikTokResult.MediaList[0].Video.PlayAddress.UriList.FirstOrDefault(),
-                        MusicUri = tikTokResult.MediaList[0].Music.PlayUri.UriList.FirstOrDefault(),
-                        ThumbnailUri = tikTokResult.MediaList[0].Video.Thumbnail.UriList.LastOrDefault(),
-                        UploadUser = tikTokResult.MediaList[0].Author.Name,
-                        UploadUserAvatar = tikTokResult.MediaList[0].Author.LargerAvatarMedia.UriList.LastOrDefault(),
-                        Statistics = tikTokResult.MediaList[0].Statistics
+                        Id = tikTokResult.MediaList?[0].Id,
+                        Description = tikTokResult.MediaList?[0].Description,
+                        CreationTimeStamp = tikTokResult.MediaList?[0].CreationTime,
+                        WatermarkVideoUri = tikTokResult.MediaList?[0].Video?.DownloadAddress?.UriList?.FirstOrDefault(),
+                        NoWatermarkVideoUri = tikTokResult.MediaList?[0].Video?.PlayAddress?.UriList?.FirstOrDefault(),
+                        MusicUri = tikTokResult.MediaList?[0].Music?.PlayUri?.UriList?.FirstOrDefault(),
+                        ThumbnailUri = tikTokResult.MediaList?[0].Video?.Thumbnail?.UriList?.LastOrDefault(),
+                        UploadUser = tikTokResult.MediaList?[0].Author?.Name,
+                        UploadUserAvatar = tikTokResult.MediaList?[0].Author?.LargerAvatarMedia?.UriList?.LastOrDefault(),
+                        Statistics = tikTokResult.MediaList?[0].Statistics
                     };
                 }
-            }
-        }
-
-        public static async Task<bool> DownloadMediaAsync(string downloadUrl, string fileName)
-        {
-            if (string.IsNullOrWhiteSpace(downloadUrl))
-            {
-                throw new DownloaderException(DownloaderExceptionCodes.MediaUriNotFound, "URI for the selected media not available.");
-            }
-
-            using var httpClient = new HttpClient();
-            using (var webStream = await httpClient.GetStreamAsync(downloadUrl))
-            {
-                var fileSaverResult = await FileSaver.Default.SaveAsync("Downloads/TikTok-Downloader", fileName, webStream, CancellationToken.None);
-                return fileSaverResult.IsSuccessful;
             }
         }
 
@@ -123,7 +111,7 @@ namespace TikTokLoaderMAUI
             {
                 using (var response = await client.GetAsync(url))
                 {
-                    if (response.StatusCode == HttpStatusCode.Moved || response.StatusCode == HttpStatusCode.MovedPermanently)
+                    if (response.StatusCode is HttpStatusCode.Moved or HttpStatusCode.MovedPermanently)
                     {
                         var headers = response.Headers;
                         if (headers.Location != null)

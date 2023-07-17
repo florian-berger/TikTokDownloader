@@ -1,13 +1,13 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace TikTokLoaderMAUI.Classes
+namespace TikTokLoader.Logic.Data
 {
     public class TikTokAuthor
     {
         [JsonPropertyName("nickname")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [JsonPropertyName("avatar_larger")]
-        public TikTokMediaUrl LargerAvatarMedia { get; set; }
+        public TikTokMediaUrl? LargerAvatarMedia { get; set; }
     }
 }
