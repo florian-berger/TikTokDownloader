@@ -2,6 +2,9 @@
 
 namespace TikTokLoaderMAUI.Converters
 {
+    /// <summary>
+    ///     Converts Unix Time to a .NET <see cref="DateTime" /> object (and back)
+    /// </summary>
     public class UnixTimeToDateTimeConverter : IValueConverter
     {
         /// <inheritdoc />

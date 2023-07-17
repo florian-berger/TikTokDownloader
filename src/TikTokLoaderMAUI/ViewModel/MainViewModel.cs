@@ -12,12 +12,15 @@ namespace TikTokLoaderMAUI.ViewModel
     {
         #region Properties
 
+        /// <summary>
+        ///     Entered URI for analyzing and TikTok download
+        /// </summary>
         [ObservableProperty]
         private string _downloadUri;
 
-        [ObservableProperty]
-        private bool _isDownloadRunning;
-
+        /// <summary>
+        ///     Result of the analyzed URI
+        /// </summary>
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasDownloadDetails))]
         [NotifyCanExecuteChangedFor(nameof(DownloadWithWatermarkCommand))]
@@ -25,9 +28,15 @@ namespace TikTokLoaderMAUI.ViewModel
         [NotifyCanExecuteChangedFor(nameof(DownloadMusicCommand))]
         private DownloadDetails? _data;
 
+        /// <summary>
+        ///     Information if the app is currently analyzing a URI
+        /// </summary>
         [ObservableProperty]
         private bool _isAnalyzing;
 
+        /// <summary>
+        ///     Information if there are download details available
+        /// </summary>
         public bool HasDownloadDetails => Data != null;
 
         #endregion Properties
@@ -43,9 +52,13 @@ namespace TikTokLoaderMAUI.ViewModel
 
         #region Commands
 
+        /// <summary>
+        ///     Command that starts the URI analysis
+        /// </summary>
         [RelayCommand]
         public async void AnalyzeUri()
         {
+            Data = null;
             GridTappedCommand.Execute(null);
 
             if (string.IsNullOrWhiteSpace(DownloadUri))
@@ -61,8 +74,6 @@ namespace TikTokLoaderMAUI.ViewModel
             }
             catch (Exception ex)
             {
-                Data = null;
-
                 await ExceptionHelper.DisplayExceptionMessage(ex);
             }
             finally
@@ -71,6 +82,9 @@ namespace TikTokLoaderMAUI.ViewModel
             }
         }
 
+        /// <summary>
+        ///     Downloads the current TikTok video without watermark
+        /// </summary>
         [RelayCommand(CanExecute = nameof(CanDownloadWithoutWatermark))]
         public async Task DownloadWithoutWatermark()
         {
@@ -99,6 +113,9 @@ namespace TikTokLoaderMAUI.ViewModel
             await Toast.Make($"Download {(successfully ? "finished" : "failed")}.").Show();
         }
 
+        /// <summary>
+        ///     Downloads the current TikTok video with watermark
+        /// </summary>
         [RelayCommand(CanExecute = nameof(CanDownloadWithWatermark))]
         public async Task DownloadWithWatermark()
         {
@@ -127,6 +144,9 @@ namespace TikTokLoaderMAUI.ViewModel
             await Toast.Make($"Download {(successfully ? "finished" : "failed")}.").Show();
         }
 
+        /// <summary>
+        ///     Downloads the sound of the current TikTok video
+        /// </summary>
         [RelayCommand(CanExecute = nameof(CanDownloadMusic))]
         public async Task DownloadMusic()
         {
@@ -155,6 +175,9 @@ namespace TikTokLoaderMAUI.ViewModel
             await Toast.Make($"Download {(successfully ? "finished" : "failed")}.").Show();
         }
 
+        /// <summary>
+        ///     Triggered when the user tapped outside of the box to close the clipboard
+        /// </summary>
         [RelayCommand]
         public void GridTapped()
         {

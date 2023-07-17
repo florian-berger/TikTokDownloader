@@ -6,10 +6,18 @@ using TikTokLoader.Logic.Data;
 
 namespace TikTokLoader.Logic
 {
+    /// <summary>
+    ///     Analyzer for TikTok URIs
+    /// </summary>
     public class Analyzer
     {
         #region Public methods
 
+        /// <summary>
+        ///     Analyzes a URI and returns the information from the TikTok video
+        /// </summary>
+        /// <param name="uri">Uri that information should be loaded</param>
+        /// <returns><see cref="DownloadDetails" /> with all relevant links for download</returns>
         public static async Task<DownloadDetails?> AnalyzeUri(string uri)
         {
             if (string.IsNullOrWhiteSpace(uri))
@@ -23,7 +31,7 @@ namespace TikTokLoader.Logic
                 throw new DownloaderException(DownloaderExceptionCodes.VideoIdNotFound, "Video ID could not be found with the entered URI.");
             }
 
-            var apiUri = Constants.ApiUri.Replace("{videoId}", videoId);
+            var apiUri = Constants.GetVideoInformationUri.Replace("{videoId}", videoId);
 
             using (var client = new HttpClient())
             {
@@ -58,6 +66,10 @@ namespace TikTokLoader.Logic
             }
         }
 
+        /// <summary>
+        ///     Returns the Id of the TikTok video. Also handling redirects
+        /// </summary>
+        /// <param name="uri">Uri that the Id of the video should be loaded from</param>
         public static async Task<string> GetVideoId(string uri)
         {
             string videoUri;
@@ -95,11 +107,21 @@ namespace TikTokLoader.Logic
 
         #region Private methods
 
+        /// <summary>
+        ///     Checks if the passed URI is a TikTok redirect URI (e.g. shared via Android)
+        /// </summary>
+        /// <param name="uri">URI that should be checked</param>
+        /// <returns>True if the <paramref name="uri" /> is a redirect URI</returns>
         private static bool IsRedirectUri(string uri)
         {
             return uri.Contains("vm.tiktok.com") || uri.Contains("vt.tiktok.com");
         }
 
+        /// <summary>
+        ///     Get the redirect target of a redirect URI
+        /// </summary>
+        /// <param name="url">URI that the target should be resolved</param>
+        /// <returns>Target URI of the passed redirect <paramref name="url" />.</returns>
         private static async Task<string> GetRedirectTargetUrl(string url)
         {
             var handler = new HttpClientHandler
