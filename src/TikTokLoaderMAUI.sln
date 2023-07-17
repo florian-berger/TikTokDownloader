@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TikTokLoader.Logic", "TikTo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TikTokLoader.Exception", "TikTokLoader.Exception\TikTokLoader.Exception.csproj", "{C48B9843-3761-4E97-81BF-7CD480243C19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TikTokLoader.Exception.Tests", "TikTokLoader.Exception.Tests\TikTokLoader.Exception.Tests.csproj", "{53E48E04-C2B2-4C84-BC2F-BA4C3B35B439}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TikTokLoader.Logic.Tests", "TikTokLoader.Logic.Tests\TikTokLoader.Logic.Tests.csproj", "{0E5D973C-3A82-4C2E-BF00-266B872640C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,14 @@ Global
 		{C48B9843-3761-4E97-81BF-7CD480243C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C48B9843-3761-4E97-81BF-7CD480243C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C48B9843-3761-4E97-81BF-7CD480243C19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53E48E04-C2B2-4C84-BC2F-BA4C3B35B439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53E48E04-C2B2-4C84-BC2F-BA4C3B35B439}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53E48E04-C2B2-4C84-BC2F-BA4C3B35B439}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53E48E04-C2B2-4C84-BC2F-BA4C3B35B439}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E5D973C-3A82-4C2E-BF00-266B872640C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E5D973C-3A82-4C2E-BF00-266B872640C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E5D973C-3A82-4C2E-BF00-266B872640C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E5D973C-3A82-4C2E-BF00-266B872640C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,7 +10,7 @@ To contribute in the development of this project, take a look at the [Contributi
 
 ## Requirements
 
-Requires **.NET MAUI** with **.NET 7**.
+Requires **.NET MAUI** with **.NET 7**. Runs on Android with **API Level 31+**.
 
 ## Tested platforms
 
@@ -25,4 +25,4 @@ The solution was tested on the following platforms:
 ## Planned features
 - [ ] Multi language
 - [ ] Light and dark theme
-- [ ] Automated tests (whoopsie)
+- [x] Automated tests (whoopsie)

@@ -58,11 +58,7 @@ namespace TikTokLoader.Logic
             }
         }
 
-        #endregion Public methods
-
-        #region Private methods
-
-        private static async Task<string> GetVideoId(string uri)
+        public static async Task<string> GetVideoId(string uri)
         {
             string videoUri;
             if (IsRedirectUri(uri))
@@ -94,6 +90,10 @@ namespace TikTokLoader.Logic
 
             return finalId.TrimEnd('/', ' ');
         }
+
+        #endregion Public methods
+
+        #region Private methods
 
         private static bool IsRedirectUri(string uri)
         {
