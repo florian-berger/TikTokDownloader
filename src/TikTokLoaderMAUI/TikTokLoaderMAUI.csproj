@@ -105,4 +105,10 @@
 	  <ProjectReference Include="..\TikTokLoader.Logic\TikTokLoader.Logic.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="SettingsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

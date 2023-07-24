@@ -82,6 +82,32 @@ namespace TikTokLoaderMAUI.ViewModel
             }
         }
 
+        [RelayCommand]
+        public async Task AnalyzeClipboard()
+        {
+            if (!AppSettings.AnalyzeClipboardOnLoad)
+            {
+                return;
+            }
+
+            var clipboardText = await Clipboard.GetTextAsync();
+            if (string.IsNullOrWhiteSpace(clipboardText))
+            {
+                return;
+            }
+
+            if (clipboardText.Equals(DownloadUri, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return;
+            }
+
+            if (clipboardText.Contains("tiktok.com", StringComparison.InvariantCultureIgnoreCase))
+            {
+                DownloadUri = clipboardText;
+                AnalyzeUriCommand.Execute(null);
+            }
+        }
+
         /// <summary>
         ///     Downloads the current TikTok video without watermark
         /// </summary>

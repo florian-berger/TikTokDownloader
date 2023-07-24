@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:TikTokLoaderMAUI.ViewModel"
+             x:Class="TikTokLoaderMAUI.SettingsPage">
+    <ContentPage.Resources>
+        <Style x:Key="CategoryHeaderStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+
+        <Style TargetType="{x:Type Frame}">
+            <Setter Property="BorderColor" Value="{AppThemeBinding Dark=DarkGray, Light=Gray}" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="Padding" Value="7" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <viewModel:SettingsViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Spacing="10" Margin="12">
+        <Label Text="General" Style="{StaticResource CategoryHeaderStyle}" />
+
+        <Frame>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Path=ChangeThemeCommand, Mode=OneTime}" />
+            </Frame.GestureRecognizers>
+
+            <VerticalStackLayout Spacing="3">
+                <Label Text="Theme" FontAttributes="Bold" />
+                <Label Text="{Binding Path=CurrentThemeName, Mode=OneWay}" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <Frame>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Path=ChangeLanguageCommand, Mode=OneTime}" />
+            </Frame.GestureRecognizers>
+
+            <VerticalStackLayout Spacing="3">
+                <Label Text="Language" FontAttributes="Bold" />
+                <Label Text="- coming soon -" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <Frame>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Path=ChangeAnalyzeClipboardCommand, Mode=OneTime}" />
+            </Frame.GestureRecognizers>
+
+            <VerticalStackLayout Spacing="3">
+                <Label Text="Analyze clipboard automatically" FontAttributes="Bold" />
+                <Label Text="{Binding Path=AnalyzeClipboardOnLoad, Mode=OneWay}" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <Label Text="TikTok API" Style="{StaticResource CategoryHeaderStyle}" />
+
+        <Frame>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Path=ChangeApiEndpointCommand, Mode=OneTime}" />
+            </Frame.GestureRecognizers>
+
+            <VerticalStackLayout Spacing="3">
+                <Label Text="API Endpoint" FontAttributes="Bold" />
+                <Label Text="- coming soon -" />
+            </VerticalStackLayout>
+        </Frame>
+    </VerticalStackLayout>
+</ContentPage>

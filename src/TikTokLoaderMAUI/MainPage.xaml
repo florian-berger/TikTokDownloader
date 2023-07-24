@@ -4,11 +4,15 @@
              xmlns:viewModel="clr-namespace:TikTokLoaderMAUI.ViewModel;assembly=TikTokLoaderMAUI"
              xmlns:converters="using:TikTokLoaderMAUI.Converters"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="TikTokLoaderMAUI.MainPage" Background="#2c2e30">
+             x:Class="TikTokLoaderMAUI.MainPage">
 
     <ContentPage.Resources>
         <converters:UnixTimeToDateTimeConverter x:Key="UnixTimeToDateTimeConverter" />
     </ContentPage.Resources>
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Appearing" Command="{Binding Path=AnalyzeClipboardCommand, Mode=OneTime}" />
+    </ContentPage.Behaviors>
 
     <ContentPage.BindingContext>
         <viewModel:MainViewModel />
@@ -44,7 +48,9 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Image Grid.Row="0" Source="{Binding Path=Data.ThumbnailUri, Mode=OneWay}" HeightRequest="128" />
+            <Frame Grid.Row="0" HorizontalOptions="Center" Background="Transparent" Padding="0" CornerRadius="20">
+                <Image Source="{Binding Path=Data.ThumbnailUri, Mode=OneWay}" HeightRequest="128" />
+            </Frame>
 
             <ScrollView Grid.Row="2" Margin="12" HorizontalOptions="Fill" VerticalOptions="Fill">
                 <Grid>
