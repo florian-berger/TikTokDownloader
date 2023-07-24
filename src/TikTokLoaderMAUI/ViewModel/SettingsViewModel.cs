@@ -1,6 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Globalization;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TikTokLoaderMAUI.Base;
+using TikTokLoaderMAUI.i18n;
 using TikTokLoaderMAUI.Utils;
 
 namespace TikTokLoaderMAUI.ViewModel
@@ -13,7 +15,10 @@ namespace TikTokLoaderMAUI.ViewModel
         private bool _analyzeClipboardOnLoad;
 
         [ObservableProperty]
-        private string _currentThemeName;
+        private string _currentThemeName = string.Empty;
+
+        [ObservableProperty]
+        private string _currentLanguageName = string.Empty;
 
         #endregion Properties
 
@@ -22,8 +27,8 @@ namespace TikTokLoaderMAUI.ViewModel
         public SettingsViewModel()
         {
             _analyzeClipboardOnLoad = AppSettings.AnalyzeClipboardOnLoad;
-
             UpdateThemeDisplayName();
+            UpdateLanguageDisplayName();
         }
 
         #endregion Constructor
@@ -35,12 +40,12 @@ namespace TikTokLoaderMAUI.ViewModel
         {
             var possibilities = new[]
             {
-                new { Id = (int)AppTheme.Light, Theme = AppTheme.Light, Name = "Light" },
-                new { Id = (int)AppTheme.Dark, Theme = AppTheme.Dark, Name = "Dark" },
-                new { Id = (int)AppTheme.Unspecified, Theme = AppTheme.Unspecified, Name = "System" }
+                new { Id = (int)AppTheme.Unspecified, Theme = AppTheme.Unspecified, Name = SettingsResource.ThemeSystem },
+                new { Id = (int)AppTheme.Light, Theme = AppTheme.Light, Name = SettingsResource.ThemeLight },
+                new { Id = (int)AppTheme.Dark, Theme = AppTheme.Dark, Name = SettingsResource.ThemeDark }
             };
 
-            var selectedThemeName = await Shell.Current.DisplayActionSheet("Select theme", "Cancel", null,
+            var selectedThemeName = await Shell.Current.DisplayActionSheet(SettingsResource.SelectTheme, GlobalResource.Cancel, null,
                 possibilities.Select(p => p.Name).ToArray());
 
             if (selectedThemeName == null)
@@ -64,13 +69,47 @@ namespace TikTokLoaderMAUI.ViewModel
         [RelayCommand]
         public async Task ChangeLanguage()
         {
-            await Shell.Current.DisplayAlert("Not implemented", "The language cannot be changed yet.", "OK");
+            var possibilities = new[]
+            {
+                new { Id = "", Name = SettingsResource.LanguageSystem },
+                new { Id = "en", Name = SettingsResource.LanguageEnglish },
+                new { Id = "de", Name = SettingsResource.LanguageGerman }
+            };
+
+            var selectedLanguageName = await Shell.Current.DisplayActionSheet(SettingsResource.SelectLanguage, GlobalResource.Cancel, null,
+                possibilities.Select(p => p.Name).ToArray());
+
+            if (selectedLanguageName == null)
+            {
+                // When the selection was canceled, don't change anything
+                return;
+            }
+
+            var selectedLanguage = possibilities.FirstOrDefault(p => p.Name == selectedLanguageName);
+            if (selectedLanguage == null)
+            {
+                return;
+            }
+
+            AppSettings.AppLanguage = selectedLanguage.Id;
+            App.SetLanguage(selectedLanguage.Id);
+
+            UpdateLanguageDisplayName();
+
+            // Restart the application to apply the language change
+            if (Application.Current != null)
+            {
+                var newShell = new AppShell();
+                Application.Current.MainPage = newShell;
+
+                await Shell.Current.GoToAsync("//SettingsPage", false);
+            }
         }
 
         [RelayCommand]
         public async Task ChangeApiEndpoint()
         {
-            await Shell.Current.DisplayAlert("Not implemented", "The API endpoint cannot be changed yet.", "OK");
+            await Shell.Current.DisplayAlert("Not implemented", "The API endpoint cannot be changed yet.", GlobalResource.Ok);
         }
 
         [RelayCommand]
@@ -87,9 +126,20 @@ namespace TikTokLoaderMAUI.ViewModel
         {
             CurrentThemeName = AppSettings.UsedTheme switch
             {
-                (int)AppTheme.Unspecified => "System",
-                (int)AppTheme.Light => "Light",
-                (int)AppTheme.Dark => "Dark",
+                (int)AppTheme.Unspecified => SettingsResource.ThemeSystem,
+                (int)AppTheme.Light => SettingsResource.ThemeLight,
+                (int)AppTheme.Dark => SettingsResource.ThemeDark,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+
+        private void UpdateLanguageDisplayName()
+        {
+            CurrentLanguageName = AppSettings.AppLanguage switch
+            {
+                "" => SettingsResource.LanguageSystem,
+                "en" => SettingsResource.LanguageEnglish,
+                "de" => SettingsResource.LanguageGerman,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

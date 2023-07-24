@@ -4,15 +4,16 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TikTokLoaderMAUI"
+    xmlns:i18n="clr-namespace:TikTokLoaderMAUI.i18n"
     Shell.FlyoutBehavior="Flyout">
 
     <ShellContent
-        Title="Download"
+        Title="{x:Static i18n:DownloadResource.Title}"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
     <ShellContent
-        Title="Settings"
+        Title="{x:Static i18n:SettingsResource.Title}"
         ContentTemplate="{DataTemplate local:SettingsPage}"
         Route="SettingsPage" />
 </Shell>

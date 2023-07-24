@@ -1,12 +1,18 @@
-﻿using TikTokLoaderMAUI.Utils;
+﻿using System.Globalization;
+using TikTokLoaderMAUI.i18n;
+using TikTokLoaderMAUI.Utils;
 
 namespace TikTokLoaderMAUI;
 
 public partial class App
 {
+    private static readonly CultureInfo SystemCulture = CultureInfo.CurrentCulture;
+
 	public App()
 	{
 		InitializeComponent();
+
+        SetLanguage(AppSettings.AppLanguage);
 
         var theme = (AppTheme) AppSettings.UsedTheme;
         SetTheme(theme);
@@ -34,6 +40,20 @@ public partial class App
             _ => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightFollowSystem
         };
 #endif
+    }
+
+    public static void SetLanguage(string culture)
+    {
+        var cultureInfo = culture == "" ? SystemCulture : new CultureInfo(culture);
+
+        CultureInfo.CurrentCulture = cultureInfo;
+        CultureInfo.CurrentUICulture = cultureInfo;
+        CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+        CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+        DownloadResource.Culture = cultureInfo;
+        GlobalResource.Culture = cultureInfo;
+        SettingsResource.Culture = cultureInfo;
     }
 
     // TODO: AppLinkRequest is not received, so it's not working.

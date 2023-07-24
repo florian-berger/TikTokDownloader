@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using TikTokLoader.Logic;
 using TikTokLoaderMAUI.Base;
 using TikTokLoader.Logic.Data;
+using TikTokLoaderMAUI.i18n;
 using TikTokLoaderMAUI.Utils;
 
 namespace TikTokLoaderMAUI.ViewModel
@@ -63,7 +64,7 @@ namespace TikTokLoaderMAUI.ViewModel
 
             if (string.IsNullOrWhiteSpace(DownloadUri))
             {
-                await Shell.Current.DisplayAlert("No URL provided", "You haven't provided any URL.", "OK");
+                await Shell.Current.DisplayAlert("No URL provided", "You haven't provided any URL.", GlobalResource.Ok);
                 return;
             }
 

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModel="clr-namespace:TikTokLoaderMAUI.ViewModel"
+             xmlns:i18n="clr-namespace:TikTokLoaderMAUI.i18n"
              x:Class="TikTokLoaderMAUI.SettingsPage">
     <ContentPage.Resources>
         <Style x:Key="CategoryHeaderStyle" TargetType="{x:Type Label}">
@@ -22,7 +23,7 @@
     </ContentPage.BindingContext>
 
     <VerticalStackLayout Spacing="10" Margin="12">
-        <Label Text="General" Style="{StaticResource CategoryHeaderStyle}" />
+        <Label Text="{x:Static i18n:SettingsResource.General}" Style="{StaticResource CategoryHeaderStyle}" />
 
         <Frame>
             <Frame.GestureRecognizers>
@@ -30,7 +31,7 @@
             </Frame.GestureRecognizers>
 
             <VerticalStackLayout Spacing="3">
-                <Label Text="Theme" FontAttributes="Bold" />
+                <Label Text="{x:Static i18n:SettingsResource.Theme}" FontAttributes="Bold" />
                 <Label Text="{Binding Path=CurrentThemeName, Mode=OneWay}" />
             </VerticalStackLayout>
         </Frame>
@@ -41,8 +42,8 @@
             </Frame.GestureRecognizers>
 
             <VerticalStackLayout Spacing="3">
-                <Label Text="Language" FontAttributes="Bold" />
-                <Label Text="- coming soon -" />
+                <Label Text="{x:Static i18n:SettingsResource.Language}" FontAttributes="Bold" />
+                <Label Text="{Binding Path=CurrentLanguageName, Mode=OneWay}" />
             </VerticalStackLayout>
         </Frame>
 
@@ -52,12 +53,12 @@
             </Frame.GestureRecognizers>
 
             <VerticalStackLayout Spacing="3">
-                <Label Text="Analyze clipboard automatically" FontAttributes="Bold" />
+                <Label Text="{x:Static i18n:SettingsResource.AnalyzeClipboard}" FontAttributes="Bold" />
                 <Label Text="{Binding Path=AnalyzeClipboardOnLoad, Mode=OneWay}" />
             </VerticalStackLayout>
         </Frame>
 
-        <Label Text="TikTok API" Style="{StaticResource CategoryHeaderStyle}" />
+        <Label Text="{x:Static i18n:SettingsResource.TikTokApi}" Style="{StaticResource CategoryHeaderStyle}" />
 
         <Frame>
             <Frame.GestureRecognizers>
@@ -65,7 +66,7 @@
             </Frame.GestureRecognizers>
 
             <VerticalStackLayout Spacing="3">
-                <Label Text="API Endpoint" FontAttributes="Bold" />
+                <Label Text="{x:Static i18n:SettingsResource.ApiEndpoint}" FontAttributes="Bold" />
                 <Label Text="- coming soon -" />
             </VerticalStackLayout>
         </Frame>

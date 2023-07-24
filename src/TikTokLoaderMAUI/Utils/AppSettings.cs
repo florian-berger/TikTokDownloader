@@ -22,5 +22,14 @@
             get => Preferences.Default.Get(nameof(UsedTheme), 0);
             set => Preferences.Default.Set(nameof(UsedTheme), value);
         }
+
+        /// <summary>
+        ///     Language of the app
+        /// </summary>
+        public static string AppLanguage
+        {
+            get => Preferences.Default.Get(nameof(AppLanguage), string.Empty);
+            set => Preferences.Default.Set(nameof(AppLanguage), value);
+        }
     }
 }
