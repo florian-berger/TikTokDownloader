@@ -1,4 +1,5 @@
 ﻿using TikTokLoader.Exception;
+using TikTokLoaderMAUI.i18n;
 
 namespace TikTokLoaderMAUI.Utils
 {
@@ -13,13 +14,28 @@ namespace TikTokLoaderMAUI.Utils
         /// <param name="exception">Exception that should be displayed</param>
         public static async Task DisplayExceptionMessage(Exception exception)
         {
+            string? errorMessage;
             if (exception is DownloaderException downEx)
             {
-                await Shell.Current.DisplayAlert("ERROR", $"Exception Code: {downEx.Code}", "OK");
-                return;
+                var errorCodeString = downEx.Code.ToString();
+
+                errorMessage = ExceptionResource.ResourceManager.GetString(errorCodeString);
+                if (string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    errorMessage = string.Format(ExceptionResource.ErrorCodeNotFound, errorCodeString, downEx.Message);
+                }
+            }
+            else
+            {
+                errorMessage = exception.Message;
             }
 
-            await Shell.Current.DisplayAlert("ERROR", exception.Message, "OK");
+            if (string.IsNullOrWhiteSpace(errorMessage))
+            {
+                errorMessage = string.Format(ExceptionResource.UnknownError, exception.GetType().Name);
+            }
+
+            await Shell.Current.DisplayAlert(GlobalResource.Error, errorMessage, GlobalResource.Ok);
         }
     }
 }

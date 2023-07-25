@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TikTokLoaderMAUI.Base;
 using TikTokLoaderMAUI.i18n;

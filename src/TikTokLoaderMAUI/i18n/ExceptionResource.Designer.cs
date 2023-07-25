@@ -22,14 +22,14 @@ namespace TikTokLoaderMAUI.i18n {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class GlobalResource {
+    internal class ExceptionResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal GlobalResource() {
+        internal ExceptionResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace TikTokLoaderMAUI.i18n {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TikTokLoaderMAUI.i18n.GlobalResource", typeof(GlobalResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TikTokLoaderMAUI.i18n.ExceptionResource", typeof(ExceptionResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,57 @@ namespace TikTokLoaderMAUI.i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
+        ///   Looks up a localized string similar to Error code &apos;{0}&apos; not found:
+        ///{1}.
         /// </summary>
-        internal static string Cancel {
+        internal static string ErrorCodeNotFound {
             get {
-                return ResourceManager.GetString("Cancel", resourceCulture);
+                return ResourceManager.GetString("ErrorCodeNotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.
+        ///   Looks up a localized string similar to The entered address is invalid. Please make sure the address belongs to TikTok..
         /// </summary>
-        internal static string Error {
+        internal static string InvalidUri {
             get {
-                return ResourceManager.GetString("Error", resourceCulture);
+                return ResourceManager.GetString("InvalidUri", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
+        ///   Looks up a localized string similar to The address for the target media was not found. Please try again later..
         /// </summary>
-        internal static string No {
+        internal static string MediaUriNotFound {
             get {
-                return ResourceManager.GetString("No", resourceCulture);
+                return ResourceManager.GetString("MediaUriNotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OK.
+        ///   Looks up a localized string similar to There was no address entered that should be analyzed..
         /// </summary>
-        internal static string Ok {
+        internal static string NoUriDefined {
             get {
-                return ResourceManager.GetString("Ok", resourceCulture);
+                return ResourceManager.GetString("NoUriDefined", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yes.
+        ///   Looks up a localized string similar to An unknown error of type &apos;{0}&apos; occurred..
         /// </summary>
-        internal static string Yes {
+        internal static string UnknownError {
             get {
-                return ResourceManager.GetString("Yes", resourceCulture);
+                return ResourceManager.GetString("UnknownError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With the entered address, it was not possible to find a video. Please try again later or use another address..
+        /// </summary>
+        internal static string VideoIdNotFound {
+            get {
+                return ResourceManager.GetString("VideoIdNotFound", resourceCulture);
             }
         }
     }

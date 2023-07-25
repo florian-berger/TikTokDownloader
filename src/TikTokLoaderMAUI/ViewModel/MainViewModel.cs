@@ -62,12 +62,6 @@ namespace TikTokLoaderMAUI.ViewModel
             Data = null;
             GridTappedCommand.Execute(null);
 
-            if (string.IsNullOrWhiteSpace(DownloadUri))
-            {
-                await Shell.Current.DisplayAlert("No URL provided", "You haven't provided any URL.", GlobalResource.Ok);
-                return;
-            }
-
             IsAnalyzing = true;
             try
             {
@@ -126,18 +120,7 @@ namespace TikTokLoaderMAUI.ViewModel
                 return;
             }
 
-            bool successfully;
-            var filename = $"{Data?.Id}.mp4";
-            try
-            {
-                successfully = await DownloadHelper.DownloadMediaAsync(downloadUrl, filename);
-            }
-            catch
-            {
-                successfully = false;
-            }
-
-            await Toast.Make($"Download {(successfully ? "finished" : "failed")}.").Show();
+            await DownloadMedia(downloadUrl, $"{Data?.Id}.mp4");
         }
 
         /// <summary>
@@ -157,18 +140,7 @@ namespace TikTokLoaderMAUI.ViewModel
                 return;
             }
 
-            bool successfully;
-            var filename = $"{Data?.Id}_wm.mp4";
-            try
-            {
-                successfully = await DownloadHelper.DownloadMediaAsync(downloadUrl, filename);
-            }
-            catch
-            {
-                successfully = false;
-            }
-
-            await Toast.Make($"Download {(successfully ? "finished" : "failed")}.").Show();
+            await DownloadMedia(downloadUrl, $"{Data?.Id}_wm.mp4");
         }
 
         /// <summary>
@@ -188,18 +160,7 @@ namespace TikTokLoaderMAUI.ViewModel
                 return;
             }
 
-            bool successfully;
-            var filename = $"{Data?.Id}.mp3";
-            try
-            {
-                successfully  = await DownloadHelper.DownloadMediaAsync(downloadUrl, filename);
-            }
-            catch
-            {
-                successfully = false;
-            }
-
-            await Toast.Make($"Download {(successfully ? "finished" : "failed")}.").Show();
+            await DownloadMedia(downloadUrl, $"{Data?.Id}.mp3");
         }
 
         /// <summary>
@@ -224,6 +185,21 @@ namespace TikTokLoaderMAUI.ViewModel
         #endregion Commands
 
         #region Private methods
+
+        private async Task DownloadMedia(string downloadUri, string fileName)
+        {
+            bool successfully;
+            try
+            {
+                successfully = await DownloadHelper.DownloadMediaAsync(downloadUri, fileName);
+            }
+            catch
+            {
+                successfully = false;
+            }
+
+            await Toast.Make(successfully ? DownloadResource.DownloadSucceeded : DownloadResource.DownloadFailed).Show();
+        }
 
         private bool CanDownloadWithoutWatermark()
         {

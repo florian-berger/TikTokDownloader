@@ -97,19 +97,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Ok" xml:space="preserve">
-    <value>OK</value>
+  <data name="ErrorCodeNotFound" xml:space="preserve">
+    <value>Fehlercode "{0}" nicht gefunden:
+{1}</value>
   </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Ein unbekannter Fehler vom Typ "{0}" ist aufgetreten.</value>
   </data>
-  <data name="No" xml:space="preserve">
-    <value>No</value>
+  <data name="InvalidUri" xml:space="preserve">
+    <value>Die eingegebene Adresse ist ungültig. Bitte stellen Sie sicher, dass es sich um eine Adresse von TikTok handelt.</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+  <data name="NoUriDefined" xml:space="preserve">
+    <value>Es wurde keine Adresse zur Analyse eingegeben.</value>
   </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
+  <data name="VideoIdNotFound" xml:space="preserve">
+    <value>Unter der eingegebenen Adresse konnte kein Video gefunden werden. Bitte versuchen Sie es später erneut oder verwenden eine andere Adresse.</value>
+  </data>
+  <data name="MediaUriNotFound" xml:space="preserve">
+    <value>Die Adresse zum Zielmedium wurde nicht gefunden. Bitte versuchen Sie es später erneut.</value>
   </data>
 </root>

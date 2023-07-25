@@ -133,4 +133,10 @@
   <data name="DownloadMusic" xml:space="preserve">
     <value>Musik runterladen</value>
   </data>
+  <data name="DownloadFailed" xml:space="preserve">
+    <value>Download fehlgeschlagen</value>
+  </data>
+  <data name="DownloadSucceeded" xml:space="preserve">
+    <value>Download erfolgreich</value>
+  </data>
 </root>

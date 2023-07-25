@@ -111,6 +111,11 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>DownloadResource.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="i18n\ExceptionResource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ExceptionResource.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="i18n\GlobalResource.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -127,6 +132,10 @@
 	  <EmbeddedResource Update="i18n\DownloadResource.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>DownloadResource.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="i18n\ExceptionResource.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ExceptionResource.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="i18n\GlobalResource.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>

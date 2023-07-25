@@ -26,7 +26,7 @@ namespace TikTokLoaderMAUI.Utils
             using var httpClient = new HttpClient();
             using (var webStream = await httpClient.GetStreamAsync(downloadUrl))
             {
-                var fileSaverResult = await FileSaver.Default.SaveAsync("Downloads/TikTok-Downloader", fileName, webStream, CancellationToken.None);
+                var fileSaverResult = await FileSaver.Default.SaveAsync("Downloads/TikTokDownloader", fileName, webStream, CancellationToken.None);
                 return fileSaverResult.IsSuccessful;
             }
         }

@@ -52,6 +52,7 @@ public partial class App
         CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
         DownloadResource.Culture = cultureInfo;
+        ExceptionResource.Culture = cultureInfo;
         GlobalResource.Culture = cultureInfo;
         SettingsResource.Culture = cultureInfo;
     }

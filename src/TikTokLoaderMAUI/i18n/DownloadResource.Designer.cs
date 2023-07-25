@@ -97,6 +97,15 @@ namespace TikTokLoaderMAUI.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download failed.
+        /// </summary>
+        internal static string DownloadFailed {
+            get {
+                return ResourceManager.GetString("DownloadFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download music.
         /// </summary>
         internal static string DownloadMusic {
@@ -111,6 +120,15 @@ namespace TikTokLoaderMAUI.i18n {
         internal static string DownloadNoWatermark {
             get {
                 return ResourceManager.GetString("DownloadNoWatermark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download succeeded.
+        /// </summary>
+        internal static string DownloadSucceeded {
+            get {
+                return ResourceManager.GetString("DownloadSucceeded", resourceCulture);
             }
         }
         
