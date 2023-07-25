@@ -3,6 +3,9 @@ using UIKit;
 
 namespace TikTokLoaderMAUI;
 
+/// <summary>
+///		Entry class for the MacApp
+/// </summary>
 public class Program
 {
 	// This is the main entry point of the application.

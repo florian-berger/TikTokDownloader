@@ -6,6 +6,9 @@ using TikTokLoaderMAUI.Utils;
 
 namespace TikTokLoaderMAUI.ViewModel
 {
+    /// <summary>
+    ///     ViewModel for the Settings page
+    /// </summary>
     public partial class SettingsViewModel : ViewModelBase
     {
         #region Properties
@@ -23,6 +26,9 @@ namespace TikTokLoaderMAUI.ViewModel
 
         #region Constructor
 
+        /// <summary>
+        ///     Creates an instance of the ViewModel
+        /// </summary>
         public SettingsViewModel()
         {
             _analyzeClipboardOnLoad = AppSettings.AnalyzeClipboardOnLoad;
@@ -34,6 +40,9 @@ namespace TikTokLoaderMAUI.ViewModel
 
         #region Commands
 
+        /// <summary>
+        ///     Let the user select a theme he want to use
+        /// </summary>
         [RelayCommand]
         public async Task ChangeTheme()
         {
@@ -65,6 +74,9 @@ namespace TikTokLoaderMAUI.ViewModel
             UpdateThemeDisplayName();
         }
 
+        /// <summary>
+        ///     Let the user select a language
+        /// </summary>
         [RelayCommand]
         public async Task ChangeLanguage()
         {
@@ -105,12 +117,18 @@ namespace TikTokLoaderMAUI.ViewModel
             }
         }
 
+        /// <summary>
+        ///     Let the user select a new Endpoint API
+        /// </summary>
         [RelayCommand]
         public async Task ChangeApiEndpoint()
         {
             await Shell.Current.DisplayAlert("Not implemented", "The API endpoint cannot be changed yet.", GlobalResource.Ok);
         }
 
+        /// <summary>
+        ///     Let the user select if the clipboard should be analyzed automatically
+        /// </summary>
         [RelayCommand]
         public void ChangeAnalyzeClipboard()
         {

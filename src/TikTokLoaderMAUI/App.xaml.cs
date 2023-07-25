@@ -4,10 +4,16 @@ using TikTokLoaderMAUI.Utils;
 
 namespace TikTokLoaderMAUI;
 
+/// <summary>
+///     Representing the whole App object
+/// </summary>
 public partial class App
 {
     private static readonly CultureInfo SystemCulture = CultureInfo.CurrentCulture;
 
+    /// <summary>
+    ///     Creates an instance of the app
+    /// </summary>
 	public App()
 	{
 		InitializeComponent();
@@ -20,6 +26,10 @@ public partial class App
 		MainPage = new AppShell();
 	}
 
+    /// <summary>
+    ///     Set the theme of the application
+    /// </summary>
+    /// <param name="theme">Theme that should be set for the app</param>
     public static void SetTheme(AppTheme theme)
     {
         if (Current == null)
@@ -42,6 +52,10 @@ public partial class App
 #endif
     }
 
+    /// <summary>
+    ///     Sets the language of the app
+    /// </summary>
+    /// <param name="culture">Language that should be set - use IetfLanguageTag</param>
     public static void SetLanguage(string culture)
     {
         var cultureInfo = culture == "" ? SystemCulture : new CultureInfo(culture);

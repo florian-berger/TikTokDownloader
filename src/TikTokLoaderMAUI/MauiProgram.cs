@@ -3,8 +3,14 @@ using Microsoft.Extensions.Logging;
 
 namespace TikTokLoaderMAUI;
 
+/// <summary>
+///		Entry class for the MAUI app
+/// </summary>
 public static class MauiProgram
 {
+	/// <summary>
+	///		Creates the MAUI app
+	/// </summary>
 	public static MauiApp CreateMauiApp()
 	{
 		var builder = MauiApp.CreateBuilder();

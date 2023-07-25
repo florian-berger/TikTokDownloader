@@ -9,6 +9,9 @@ using TikTokLoaderMAUI.Utils;
 
 namespace TikTokLoaderMAUI.ViewModel
 {
+    /// <summary>
+    ///     ViewModel for the Main page
+    /// </summary>
     public partial class MainViewModel : ViewModelBase
     {
         #region Properties
@@ -44,6 +47,9 @@ namespace TikTokLoaderMAUI.ViewModel
 
         #region Constructor
 
+        /// <summary>
+        ///     Creates an instance of the ViewModel
+        /// </summary>
         public MainViewModel()
         {
             _downloadUri = string.Empty;
@@ -77,6 +83,9 @@ namespace TikTokLoaderMAUI.ViewModel
             }
         }
 
+        /// <summary>
+        ///     Command that analyzes the clipboard for a TikTok URI
+        /// </summary>
         [RelayCommand]
         public async Task AnalyzeClipboard()
         {

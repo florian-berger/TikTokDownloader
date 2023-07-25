@@ -19,6 +19,9 @@ public partial class App : MauiWinUIApplication
 		this.InitializeComponent();
 	}
 
+	/// <summary>
+	///		Creates the MAUI app for Windows
+	/// </summary>
 	protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 }
 
