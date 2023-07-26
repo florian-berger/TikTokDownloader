@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Maui;
+using MauiIcons.Material;
 using Microsoft.Extensions.Logging;
+using The49.Maui.BottomSheet;
 
 namespace TikTokLoaderMAUI;
 
@@ -21,7 +23,9 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+			})
+            .UseMaterialMauiIcons()
+            .UseBottomSheet();
 
 #if DEBUG
 		builder.Logging.AddDebug();

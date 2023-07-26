@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:TikTokLoaderMAUI.i18n"
+             xmlns:controls="clr-namespace:TikTokLoaderMAUI.Controls"
+             xmlns:viewModel="clr-namespace:TikTokLoaderMAUI.ViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:material="clr-namespace:MauiIcons.Material;assembly=MauiIcons.Material"
+             x:Class="TikTokLoaderMAUI.InfoPage" x:Name="AppInfoPage">
+    <ContentPage.BindingContext>
+        <viewModel:InfoViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <toolkit:InvertedBoolConverter x:Key="InvertBoolConverter" />
+
+        <DataTemplate x:Key="LicensePackageDataTemplate">
+            <Frame Style="{StaticResource FrameSectionStyle}">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={x:Reference AppInfoPage}, Path=BindingContext.ShowLicenseDetailsCommand, Mode=OneWay}"
+                                          CommandParameter="{Binding ., Mode=OneWay}"/>
+                </Frame.GestureRecognizers>
+
+                <VerticalStackLayout Spacing="3">
+                    <Label Text="{Binding Path=Name, Mode=OneWay}" FontAttributes="Bold" LineBreakMode="TailTruncation" />
+                    <Label Text="{Binding Path=Version, Mode=OneWay, StringFormat={x:Static i18n:InfoResource.PackageVersion}}" />
+                </VerticalStackLayout>
+            </Frame>
+        </DataTemplate>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Margin="12">
+            <Label Text="{x:Static i18n:InfoResource.General}" Style="{StaticResource CategoryHeaderStyle}" />
+
+            <Frame Style="{StaticResource FrameSectionStyle}">
+                <VerticalStackLayout Spacing="3">
+                    <Label Text="{x:Static i18n:InfoResource.Version}" FontAttributes="Bold" />
+                    <Label Text="{Binding Path=CurrentAppVersion, Mode=OneWay}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Style="{StaticResource FrameSectionStyle}">
+                <VerticalStackLayout Spacing="3">
+                    <Label Text="{x:Static i18n:InfoResource.Author}" FontAttributes="Bold" />
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <controls:HyperlinkSpan Text="Florian Berger" TargetAddress="https://florian-berger.info" />
+                                <Span Text=" &amp; " />
+                                <Span Text="{x:Static i18n:InfoResource.AuthorContributors}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Style="{StaticResource FrameSectionStyle}">
+                <VerticalStackLayout Spacing="3">
+                    <Label Text="{x:Static i18n:InfoResource.Contribution}" FontAttributes="Bold" />
+                    <controls:Hyperlink DisplayText="GitHub" TargetAddress="https://github.com/florian-berger/TikTokDownloader" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <toolkit:Expander x:Name="LicenseExpander" IsExpanded="False" Margin="0,10,0,0">
+                <toolkit:Expander.Header>
+                    <HorizontalStackLayout>
+                        <Image Aspect="Center" Source="{material:Icon Icon=ExpandMore}" IsVisible="{Binding Source={x:Reference LicenseExpander}, Path=IsExpanded, Converter={StaticResource InvertBoolConverter}}" VerticalOptions="Center" />
+                        <Image Aspect="Center" Source="{material:Icon Icon=ExpandLess}" IsVisible="{Binding Source={x:Reference LicenseExpander}, Path=IsExpanded}" VerticalOptions="Center" />
+
+                        <Label Text="{x:Static i18n:InfoResource.ThirdPartyLicenses}" Style="{StaticResource CategoryHeaderStyle}" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </toolkit:Expander.Header>
+
+                <VerticalStackLayout Spacing="10" Margin="0,5,0,0"
+                                     BindableLayout.ItemsSource="{Binding Path=UsedThirdPartyPackages, Mode=OneWay}"
+                                     BindableLayout.ItemTemplate="{StaticResource LicensePackageDataTemplate}">
+                </VerticalStackLayout>
+            </toolkit:Expander>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

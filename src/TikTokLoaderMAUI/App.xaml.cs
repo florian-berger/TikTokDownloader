@@ -68,6 +68,7 @@ public partial class App
         DownloadResource.Culture = cultureInfo;
         ExceptionResource.Culture = cultureInfo;
         GlobalResource.Culture = cultureInfo;
+        InfoResource.Culture = cultureInfo;
         SettingsResource.Culture = cultureInfo;
     }
 

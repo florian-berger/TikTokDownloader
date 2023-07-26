@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<the49:BottomSheet xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
+                   xmlns:controls="clr-namespace:TikTokLoaderMAUI.Controls"
+                   xmlns:converters="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                   xmlns:i18n="clr-namespace:TikTokLoaderMAUI.i18n"
+                   xmlns:tikTokLoaderMaui="clr-namespace:TikTokLoaderMAUI"
+                   x:Class="TikTokLoaderMAUI.LicenseDetailSheet"
+                   HasBackdrop="True" HasHandle="True"
+                   x:DataType="{x:Type tikTokLoaderMaui:LicenseDetailSheet}">
+    <the49:BottomSheet.Detents>
+        <the49:ContentDetent IsDefault="True" />
+    </the49:BottomSheet.Detents>
+
+    <the49:BottomSheet.Resources>
+        <converters:IsStringNotNullOrWhiteSpaceConverter x:Key="StringIsNotWhitespaceConverter" />
+        <converters:IsStringNullOrWhiteSpaceConverter x:Key="StringIsWhitespaceConverter" />
+
+        <Style x:Key="LicenseInfoLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+        <DataTemplate x:Key="LicenseLinkTemplate">
+            <controls:Hyperlink LineBreakMode="WordWrap"
+                                DisplayText="{Binding Path=Key, Mode=OneWay}"
+                                TargetAddress="{Binding Path=Value, Mode=OneWay}"/>
+        </DataTemplate>
+    </the49:BottomSheet.Resources>
+
+    <VerticalStackLayout Margin="20,20,20,5">
+        <Label FontAttributes="Bold" FontSize="16" Text="{x:Static i18n:InfoResource.PackageInfoDetailsHeader}" Margin="0,0,0,15" />
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource LicenseInfoLabelStyle}" Text="{x:Static i18n:InfoResource.PackageInfoName}" />
+            <Label Grid.Column="2" Grid.Row="0" Text="{Binding Path=Package.Name, Mode=OneWay}" LineBreakMode="WordWrap" />
+
+            <Label Grid.Column="0" Grid.Row="2" Style="{StaticResource LicenseInfoLabelStyle}" Text="{x:Static i18n:InfoResource.PackageInfoAuthor}" />
+            <Label Grid.Column="2" Grid.Row="2" Text="{Binding Path=Package.Author, Mode=OneWay}" LineBreakMode="WordWrap" />
+
+            <Label Grid.Column="0" Grid.Row="4" Style="{StaticResource LicenseInfoLabelStyle}" Text="{x:Static i18n:InfoResource.PackageInfoVersion}" />
+            <Label Grid.Column="2" Grid.Row="4" Text="{Binding Path=Package.Version, Mode=OneWay}" LineBreakMode="WordWrap" />
+
+            <Label Grid.Column="0" Grid.Row="6" Style="{StaticResource LicenseInfoLabelStyle}" Text="{x:Static i18n:InfoResource.PackageInfoHomepage}" />
+            <controls:Hyperlink Grid.Column="2" Grid.Row="6" LineBreakMode="WordWrap"
+                                IsVisible="{Binding Path=Package.HomepageUri, Mode=OneWay, Converter={StaticResource StringIsNotWhitespaceConverter}}"
+                                DisplayText="{x:Static i18n:InfoResource.PackageInfoOpenHomepage}" TargetAddress="{Binding Path=Package.HomepageUri, Mode=OneWay}"/>
+            <Label Grid.Column="2" Grid.Row="6" LineBreakMode="WordWrap"
+                   IsVisible="{Binding Path=Package.HomepageUri, Mode=OneWay, Converter={StaticResource StringIsWhitespaceConverter}}"
+                   Text="{x:Static i18n:InfoResource.PackageInfoNoHomepage}" FontAttributes="Italic" />
+
+            <Label Grid.Column="0" Grid.Row="8" Style="{StaticResource LicenseInfoLabelStyle}" Text="{x:Static i18n:InfoResource.PackageInfoLicense}" />
+            <VerticalStackLayout Grid.Column="2" Grid.Row="8" Spacing="5"
+                                 BindableLayout.ItemsSource="{Binding Path=Package.LicenseInfo, Mode=OneWay}"
+                                 BindableLayout.ItemTemplate="{StaticResource LicenseLinkTemplate}">
+            </VerticalStackLayout>
+        </Grid>
+    </VerticalStackLayout>
+</the49:BottomSheet>

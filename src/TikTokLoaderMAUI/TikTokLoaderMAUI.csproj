@@ -95,9 +95,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AathifMahir.Maui.MauiIcons.Material" Version="1.2.0" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="The49.Maui.BottomSheet" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -121,6 +123,11 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>GlobalResource.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="i18n\InfoResource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>InfoResource.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="i18n\SettingsResource.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -141,6 +148,10 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>GlobalResource.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="i18n\InfoResource.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>InfoResource.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="i18n\SettingsResource.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>SettingsResource.Designer.cs</LastGenOutput>
@@ -148,6 +159,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="InfoPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="LicenseDetailSheet.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="SettingsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

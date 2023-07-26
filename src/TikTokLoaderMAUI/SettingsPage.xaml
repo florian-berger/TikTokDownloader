@@ -4,20 +4,6 @@
              xmlns:viewModel="clr-namespace:TikTokLoaderMAUI.ViewModel"
              xmlns:i18n="clr-namespace:TikTokLoaderMAUI.i18n"
              x:Class="TikTokLoaderMAUI.SettingsPage">
-    <ContentPage.Resources>
-        <Style x:Key="CategoryHeaderStyle" TargetType="{x:Type Label}">
-            <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="FontSize" Value="20" />
-        </Style>
-
-        <Style TargetType="{x:Type Frame}">
-            <Setter Property="BorderColor" Value="{AppThemeBinding Dark=DarkGray, Light=Gray}" />
-            <Setter Property="CornerRadius" Value="0" />
-            <Setter Property="Padding" Value="7" />
-            <Setter Property="Background" Value="Transparent" />
-        </Style>
-    </ContentPage.Resources>
-
     <ContentPage.BindingContext>
         <viewModel:SettingsViewModel />
     </ContentPage.BindingContext>
@@ -25,7 +11,7 @@
     <VerticalStackLayout Spacing="10" Margin="12">
         <Label Text="{x:Static i18n:SettingsResource.General}" Style="{StaticResource CategoryHeaderStyle}" />
 
-        <Frame>
+        <Frame Style="{StaticResource FrameSectionStyle}">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding Path=ChangeThemeCommand, Mode=OneTime}" />
             </Frame.GestureRecognizers>
@@ -36,7 +22,7 @@
             </VerticalStackLayout>
         </Frame>
 
-        <Frame>
+        <Frame Style="{StaticResource FrameSectionStyle}">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding Path=ChangeLanguageCommand, Mode=OneTime}" />
             </Frame.GestureRecognizers>
@@ -47,7 +33,7 @@
             </VerticalStackLayout>
         </Frame>
 
-        <Frame>
+        <Frame Style="{StaticResource FrameSectionStyle}">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding Path=ChangeAnalyzeClipboardCommand, Mode=OneTime}" />
             </Frame.GestureRecognizers>
@@ -60,7 +46,7 @@
 
         <Label Text="{x:Static i18n:SettingsResource.TikTokApi}" Style="{StaticResource CategoryHeaderStyle}" />
 
-        <Frame>
+        <Frame Style="{StaticResource FrameSectionStyle}">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding Path=ChangeApiEndpointCommand, Mode=OneTime}" />
             </Frame.GestureRecognizers>

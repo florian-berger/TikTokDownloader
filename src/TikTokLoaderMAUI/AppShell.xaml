@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TikTokLoaderMAUI"
     xmlns:i18n="clr-namespace:TikTokLoaderMAUI.i18n"
-    Shell.FlyoutBehavior="Flyout">
+    FlyoutBehavior="Flyout">
 
     <ShellContent
         Title="{x:Static i18n:DownloadResource.Title}"
@@ -16,4 +16,9 @@
         Title="{x:Static i18n:SettingsResource.Title}"
         ContentTemplate="{DataTemplate local:SettingsPage}"
         Route="SettingsPage" />
+
+    <ShellContent
+        Title="{x:Static i18n:InfoResource.Title}"
+        ContentTemplate="{DataTemplate local:InfoPage}"
+        Route="InfoPage" />
 </Shell>

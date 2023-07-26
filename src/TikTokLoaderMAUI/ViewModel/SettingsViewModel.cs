@@ -32,6 +32,7 @@ namespace TikTokLoaderMAUI.ViewModel
         public SettingsViewModel()
         {
             _analyzeClipboardOnLoad = AppSettings.AnalyzeClipboardOnLoad;
+
             UpdateThemeDisplayName();
             UpdateLanguageDisplayName();
         }
