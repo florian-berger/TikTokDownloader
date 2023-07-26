@@ -23,7 +23,7 @@ The solution was tested on the following platforms:
 - [ ] Windows
 
 ## Planned features
-- [ ] Multi language
+- [x] Multi language
 - [x] Light and dark theme
 - [x] Automated tests
 - [ ] Multiple API endpoints
