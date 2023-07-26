@@ -27,3 +27,4 @@ The solution was tested on the following platforms:
 - [x] Light and dark theme
 - [x] Automated tests
 - [ ] Multiple API endpoints
+- [ ] New graphics (Icon & SplashScreen)
